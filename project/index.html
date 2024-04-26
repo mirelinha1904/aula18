@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2> Cdastro De Telefone</h2>
+
+<form id="cadastroForm">
+    <label for="id">Id:</label>
+    <input type="text" id="id" required>
+    <br><br>
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" required>
+    <br><br>
+    <label for="telefone">Telefone:</label>
+    <input type="text" id="telefone" required>
+    <br><br>
+    <button type="submit">Cadastrar</button>
+    </form>
+</body>
+
+<script>
+ document.getElementById('cadastroForm').addEventListener("submit", function(event){ alert('teste')
+
+  event.preventDefault();//impedir envio do formulario...
+
+ //receber as informações da página (HTML)
+ var id = document.getElementById("id").value;
+ var nome = document.getElementById("nome").value;
+ var telefone = document.getElementById("telefone").value;
+
+ //como eu crio um objeto no javascript...agora vou criar!!!
+ var cadtelefone = {
+    id: id,
+    nome: nome,
+    telefone: telefone
+ };
+
+ console.log(cadtelefone);
+
+ //estou verificando se existe alguma coisa que foi inserida no sessionStorage referente a telefones
+ if(sessionStorage.getItem("telefones")){
+    //estou recebendo todo o conteudo que consta na minha sessionstorage referente a telefones
+    var telefoneList = JSON.parse(sessionStorage.getItem("telefones"));
+    telefoneList.push(cadtelefone);
+    sessionStorange.setItem("telefones", JSON.stringify(telefoneList));
+ }else{
+    //como não existe nenhum elemento, crio um novo
+    var novalista = [cadtelefone]
+    //envia os dados para o sessionstorage
+    sessionStorage.setItem("telesfones", JSON.stringify(novalista));
+ }
+
+ //limpa o formulario
+documnet.getElementById("cadastroForm").reset();
+
+});
+
+</script>
+</html>
